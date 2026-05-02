@@ -1,0 +1,227 @@
+/* =====================================================================
+   City We Build — styles
+   Plain CSS. Each section has a comment so you can find things fast.
+   ===================================================================== */
+
+/* ---------- Basic reset ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ---------- Color + font variables (change these to re-skin the app) ---------- */
+:root {
+  --bg-1: #0f172a;            /* deep navy */
+  --bg-2: #1e293b;            /* lighter navy */
+  --accent: #38bdf8;          /* sky blue */
+  --accent-2: #a78bfa;        /* purple */
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --danger: #f87171;
+  --success: #4ade80;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Page background (animated gradient) ---------- */
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a, #134e4a);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  padding: 28px 32px 20px;
+  text-align: center;
+}
+.topbar h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.topbar p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+/* ---------- Layout: form on left, map on right ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 20px;
+  padding: 0 20px 20px;
+  height: calc(100vh - 110px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* On small screens, stack vertically */
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .map-card { height: 420px; }
+}
+
+/* ---------- Cards (frosted glass look) ---------- */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.form-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.form-card .subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* ---------- Form elements ---------- */
+label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input[type="file"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+input[type="file"]::file-selector-button {
+  background: var(--accent);
+  color: #0f172a;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+button {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #0f172a;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+}
+button:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(167, 139, 250, 0.45); }
+button:active { transform: translateY(0); }
+button:disabled {
+  background: #475569;
+  color: #cbd5e1;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.status {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  min-height: 1.2em;
+  text-align: center;
+}
+.status.error { color: var(--danger); }
+.status.success { color: var(--success); }
+
+/* Little spinner shown while AI is thinking */
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Map ---------- */
+#map {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+/* Round the map corners to match the card */
+.map-card { padding: 0; }
+.leaflet-container { border-radius: var(--radius); }
+
+/* ---------- Popup styles (Leaflet popup contents) ---------- */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+}
+.popup { font-family: inherit; }
+.popup img {
+  width: 220px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: block;
+}
+.popup b {
+  display: block;
+  margin-top: 6px;
+  color: #0f172a;
+  font-size: 0.85rem;
+}
+.popup span { font-size: 0.9rem; color: #334155; }

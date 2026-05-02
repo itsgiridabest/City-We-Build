@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City We Build — Boston</title>
+
+  <!-- Google Font for a nicer look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS: this styles the map. Loaded from a CDN so we don't install anything. -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <!-- Our own styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top bar -->
+  <header class="topbar">
+    <h1>🏙️ City We Build</h1>
+    <p>Snap a Boston problem. AI suggests a fix. Watch the city fill with ideas.</p>
+  </header>
+
+  <main class="layout">
+    <!-- LEFT: upload form -->
+    <section class="card form-card">
+      <h2>Report a problem</h2>
+      <p class="subtitle">Upload a photo and let AI suggest a community fix.</p>
+
+      <!-- The form. We listen for "submit" in script.js -->
+      <form id="upload-form">
+        <label for="photo">Photo of the problem</label>
+        <input type="file" id="photo" accept="image/*" required />
+
+        <label for="description">What's wrong here? (optional)</label>
+        <textarea
+          id="description"
+          rows="3"
+          placeholder="e.g. Trash piled up on the sidewalk"
+        ></textarea>
+
+        <button type="submit" id="submit-btn">✨ Analyze with AI</button>
+
+        <!-- Status message: "Analyzing..." or errors -->
+        <p id="status" class="status"></p>
+      </form>
+    </section>
+
+    <!-- RIGHT: the map -->
+    <section class="card map-card">
+      <!-- Leaflet will turn this empty <div> into a map -->
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <!-- Leaflet JavaScript library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Our app code -->
+  <script src="script.js"></script>
+</body>
+</html>
