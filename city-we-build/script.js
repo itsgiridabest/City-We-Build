@@ -7,7 +7,7 @@
 // Your OpenRouter API key. Paste it between the quotes.
 // NOTE: Anyone who visits the site can read this key — that's the trade-off
 // for keeping things simple. Use a key with a small spending limit!
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "";
 
 // Which AI model to use. This one supports images (vision).
 // Browse more at https://openrouter.ai/models
